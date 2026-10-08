@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مؤقت الكتابة</title>
+  <title>لوحة تتبع الرواية والبومودورو</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-page: transparent;
-      --card-bg: #ffffff;
-      --border-subtle: #eae8e5;
-      --text-main: #2f2b27;
+      --bg: #ffffff;
+      --card: #faf9f7;
+      --border: #eae7e1;
+      --text: #2f2b27;
       --text-muted: #8c827a;
       --accent: #b48356;
       --accent-soft: #f4ede4;
       --accent-hover: #9e6f43;
-      --btn-sub-bg: #f8f7f5;
-      --btn-sub-border: #e6e3df;
+      --danger: #b91c1c;
     }
 
     * {
@@ -29,95 +28,84 @@
     }
 
     body {
-      background-color: var(--bg-page);
-      color: var(--text-main);
+      background-color: transparent;
+      color: var(--text);
       display: flex;
       justify-content: center;
-      align-items: center;
-      min-height: 100vh;
       padding: 12px;
     }
 
     .widget-container {
-      background: var(--card-bg);
-      border: 1px solid var(--border-subtle);
-      border-radius: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       padding: 20px;
       width: 100%;
-      max-width: 320px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      max-width: 360px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     }
 
-    .header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .header-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px dashed var(--border);
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 4px;
+      outline: none;
       margin-bottom: 16px;
     }
 
-    .novel-title {
-      background: transparent;
-      border: none;
-      border-bottom: 1px dashed var(--border-subtle);
-      color: var(--text-main);
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-align: center;
-      width: 100%;
-      padding: 4px;
-      outline: none;
-    }
-
-    .novel-title:focus {
+    .header-input:focus {
       border-color: var(--accent);
     }
 
-    .chapter-row {
+    .session-toggle {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .chapter-row input {
-      background: #faf9f7;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      border-radius: 6px;
-      padding: 3px 6px;
-      width: 60px;
-      text-align: center;
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    .chapter-row input:focus {
-      border-color: var(--accent);
-    }
-
-    .timer-section {
-      text-align: center;
-    }
-
-    .mode-pills {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
       margin-bottom: 14px;
     }
 
-    .mode-btn {
-      background: var(--btn-sub-bg);
-      border: 1px solid var(--btn-sub-border);
+    .session-toggle button {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
       color: var(--text-muted);
-      padding: 5px 10px;
-      border-radius: 16px;
       cursor: pointer;
-      font-size: 0.78rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .session-toggle button.active {
+      background: var(--bg);
+      color: var(--accent-hover);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .timer-modes {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mode-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 0.75rem;
+      cursor: pointer;
     }
 
     .mode-btn.active {
@@ -128,33 +116,33 @@
     }
 
     .timer-display {
-      font-size: 3rem;
+      font-size: 3.2rem;
       font-weight: 700;
-      color: var(--text-main);
+      text-align: center;
       letter-spacing: 1px;
-      margin-bottom: 14px;
       font-variant-numeric: tabular-nums;
+      margin: 4px 0 12px;
     }
 
-    .timer-controls {
+    .controls {
       display: flex;
       justify-content: center;
       gap: 8px;
+      margin-bottom: 16px;
     }
 
     .btn {
-      padding: 6px 16px;
+      padding: 7px 18px;
       border-radius: 8px;
       border: none;
       cursor: pointer;
       font-weight: 700;
       font-size: 0.85rem;
-      transition: background 0.2s;
     }
 
     .btn-main {
       background: var(--accent);
-      color: #ffffff;
+      color: #fff;
     }
 
     .btn-main:hover {
@@ -162,92 +150,168 @@
     }
 
     .btn-sub {
-      background: var(--btn-sub-bg);
-      border: 1px solid var(--btn-sub-border);
-      color: var(--text-main);
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
     }
 
-    .btn-sub:hover {
-      background: #eeebe7;
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
     }
 
-    .sessions-counter {
+    .section-title {
       font-size: 0.8rem;
+      font-weight: 700;
       color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+
+    .grid-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .grid-row input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 4px 6px;
       text-align: center;
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+      outline: none;
+      width: 70px;
+    }
+
+    .grid-row input[type="date"] {
+      width: 120px;
+    }
+
+    .stat-badge {
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .deadline-status {
+      font-size: 0.78rem;
+      color: var(--accent-hover);
+      text-align: center;
+      margin-top: 6px;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
   <div class="widget-container">
-    <div class="header">
-      <input type="text" id="novelName" class="novel-title" placeholder="اسم الرواية..." />
-      <div class="chapter-row">
-        <span>الفصل:</span>
-        <input type="number" id="currentChapter" min="1" value="1" onchange="saveData()" />
+    <input type="text" id="novelName" class="header-input" placeholder="اسم الرواية..." oninput="switchNovel()" />
+
+    <!-- نوع الجلسة -->
+    <div class="session-toggle">
+      <button id="typeWriting" class="active" onclick="setSessionType('writing')">جلسة كتابة</button>
+      <button id="typeReview" onclick="setSessionType('review')">مراجعة فصول</button>
+    </div>
+
+    <!-- المؤقت -->
+    <div class="timer-modes">
+      <button class="mode-btn active" onclick="setTimerDuration(this, 25)">25 دقيقة</button>
+      <button class="mode-btn" onclick="setTimerDuration(this, 45)">45 دقيقة</button>
+      <button class="mode-btn" onclick="setTimerDuration(this, 5)">استراحة (5د)</button>
+    </div>
+
+    <div class="timer-display" id="timeDisplay">25:00</div>
+
+    <div class="controls">
+      <button class="btn btn-main" id="startBtn" onclick="toggleTimer()">بدء</button>
+      <button class="btn btn-sub" onclick="resetTimer()">إعادة ضبط</button>
+    </div>
+
+    <!-- داشبورد الإنجاز الأسبوعي -->
+    <div class="section-card">
+      <div class="section-title">
+        <span>نشاط الأسبوع الحالي</span>
+        <span class="stat-badge" id="weekTotal">0 دقيقة</span>
+      </div>
+      <div class="grid-row">
+        <span>الكتابة:</span>
+        <span id="weekWriting">0 د</span>
+      </div>
+      <div class="grid-row">
+        <span>مراجعة الفصول:</span>
+        <span id="weekReview">0 د</span>
       </div>
     </div>
 
-    <div class="timer-section">
-      <div class="mode-pills">
-        <button class="mode-btn active" onclick="setMode(this, 25)">كتابة (25د)</button>
-        <button class="mode-btn" onclick="setMode(this, 5)">راحة (5د)</button>
-        <button class="mode-btn" onclick="setMode(this, 15)">استراحة (15د)</button>
+    <!-- متابعة الفصول والديدلاين -->
+    <div class="section-card">
+      <div class="section-title">
+        <span>مسار المراجعة والديدلاين</span>
+        <span id="chaptersPercent" style="font-weight:700;">0%</span>
       </div>
-
-      <div class="timer-display" id="timeDisplay">25:00</div>
-
-      <div class="timer-controls">
-        <button class="btn btn-main" id="startBtn" onclick="toggleTimer()">بدء</button>
-        <button class="btn btn-sub" onclick="resetTimer()">إعادة ضبط</button>
+      <div class="grid-row">
+        <span>وصلت للفصل:</span>
+        <input type="number" id="currentChap" min="0" value="1" onchange="saveNovelData()" />
       </div>
-
-      <div class="sessions-counter">الجلسات المنجزة اليوم: <span id="sessionCount">0</span></div>
+      <div class="grid-row">
+        <span>إجمالي الفصول:</span>
+        <input type="number" id="totalChaps" min="1" value="20" onchange="saveNovelData()" />
+      </div>
+      <div class="grid-row">
+        <span>الديدلاين:</span>
+        <input type="date" id="deadlineDate" onchange="saveNovelData()" />
+      </div>
+      <div class="deadline-status" id="deadlineStatus">حدد موعد التسليم</div>
     </div>
   </div>
 
   <script>
     let timer;
     let isRunning = false;
+    let currentDurationMinutes = 25;
     let timeLeft = 25 * 60;
-    let currentModeMinutes = 25;
-    let completedSessions = 0;
+    let sessionType = 'writing'; // 'writing' or 'review'
 
     const timeDisplay = document.getElementById('timeDisplay');
     const startBtn = document.getElementById('startBtn');
-    const sessionCount = document.getElementById('sessionCount');
 
-    function playAlarmSound() {
+    function playBell() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-
         osc.type = 'sine';
         osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
-
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.25);
         gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
-
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-
         osc.start();
         osc.stop(audioCtx.currentTime + 1.2);
-      } catch (e) {
-        console.log('Audio playback prevented');
-      }
+      } catch (e) {}
     }
 
     function updateDisplay() {
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
-      timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      const m = Math.floor(timeLeft / 60);
+      const s = timeLeft % 60;
+      timeDisplay.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     }
 
     function toggleTimer() {
@@ -266,7 +330,7 @@
             clearInterval(timer);
             isRunning = false;
             startBtn.textContent = 'بدء';
-            handleComplete();
+            onComplete();
           }
         }, 1000);
       }
@@ -276,47 +340,118 @@
       clearInterval(timer);
       isRunning = false;
       startBtn.textContent = 'بدء';
-      timeLeft = currentModeMinutes * 60;
+      timeLeft = currentDurationMinutes * 60;
       updateDisplay();
     }
 
-    function setMode(element, minutes) {
-      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-      element.classList.add('active');
-      currentModeMinutes = minutes;
+    function setSessionType(type) {
+      sessionType = type;
+      document.getElementById('typeWriting').classList.toggle('active', type === 'writing');
+      document.getElementById('typeReview').classList.toggle('active', type === 'review');
+    }
+
+    function setTimerDuration(el, minutes) {
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      currentDurationMinutes = minutes;
       resetTimer();
     }
 
-    function handleComplete() {
-      playAlarmSound();
-      if (currentModeMinutes === 25) {
-        completedSessions++;
-        sessionCount.textContent = completedSessions;
-        localStorage.setItem('novel_sessions', completedSessions);
+    function onComplete() {
+      playBell();
+      if (currentDurationMinutes >= 10) {
+        logSessionMinutes(currentDurationMinutes, sessionType);
+        loadWeeklyStats();
       }
     }
 
-    function saveData() {
-      localStorage.setItem('novel_name', document.getElementById('novelName').value);
-      localStorage.setItem('novel_chapter', document.getElementById('currentChapter').value);
+    function getStorageKey() {
+      const name = document.getElementById('novelName').value.trim() || 'default_novel';
+      return `tracker_${name}`;
     }
 
-    function loadData() {
-      if (localStorage.getItem('novel_name')) {
-        document.getElementById('novelName').value = localStorage.getItem('novel_name');
+    function logSessionMinutes(minutes, type) {
+      const key = getStorageKey() + '_logs';
+      const logs = JSON.parse(localStorage.getItem(key) || '[]');
+      logs.push({ date: new Date().toISOString(), minutes, type });
+      localStorage.setItem(key, JSON.stringify(logs));
+    }
+
+    function loadWeeklyStats() {
+      const key = getStorageKey() + '_logs';
+      const logs = JSON.parse(localStorage.getItem(key) || '[]');
+      const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+      let writingMin = 0;
+      let reviewMin = 0;
+
+      logs.forEach(item => {
+        if (new Date(item.date) >= oneWeekAgo) {
+          if (item.type === 'writing') writingMin += item.minutes;
+          if (item.type === 'review') reviewMin += item.minutes;
+        }
+      });
+
+      const totalMin = writingMin + reviewMin;
+      const hours = Math.floor(totalMin / 60);
+      const remMin = totalMin % 60;
+
+      document.getElementById('weekTotal').textContent = hours > 0 ? `${hours}س و ${remMin}د` : `${totalMin} دقيقة`;
+      document.getElementById('weekWriting').textContent = `${writingMin} دقيقة`;
+      document.getElementById('weekReview').textContent = `${reviewMin} دقيقة`;
+    }
+
+    function saveNovelData() {
+      const key = getStorageKey() + '_meta';
+      const current = parseFloat(document.getElementById('currentChap').value) || 0;
+      const total = parseFloat(document.getElementById('totalChaps').value) || 1;
+      const deadline = document.getElementById('deadlineDate').value;
+
+      const data = { current, total, deadline };
+      localStorage.setItem(key, JSON.stringify(data));
+      calculateReviewProgress(current, total, deadline);
+    }
+
+    function calculateReviewProgress(current, total, deadline) {
+      const pct = Math.min(100, Math.round((current / total) * 100));
+      document.getElementById('chaptersPercent').textContent = `${pct}%`;
+
+      const statusEl = document.getElementById('deadlineStatus');
+      if (!deadline) {
+        statusEl.textContent = 'حدد موعد التسليم';
+        return;
       }
-      if (localStorage.getItem('novel_chapter')) {
-        document.getElementById('currentChapter').value = localStorage.getItem('novel_chapter');
+
+      const diffTime = new Date(deadline) - new Date();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 0) {
+        statusEl.textContent = `انتهى الديدلاين منذ ${Math.abs(diffDays)} يوم`;
+        statusEl.style.color = 'var(--danger)';
+      } else if (diffDays === 0) {
+        statusEl.textContent = 'اليوم هو موعد التسليم!';
+        statusEl.style.color = 'var(--accent-hover)';
+      } else {
+        const remainingChaps = Math.max(0, total - current);
+        statusEl.textContent = `متبقي ${diffDays} يوم (باقي ${remainingChaps} فصل)`;
+        statusEl.style.color = 'var(--accent-hover)';
       }
-      if (localStorage.getItem('novel_sessions')) {
-        completedSessions = parseInt(localStorage.getItem('novel_sessions'), 10) || 0;
-        sessionCount.textContent = completedSessions;
-      }
+    }
+
+    function switchNovel() {
+      const key = getStorageKey() + '_meta';
+      const saved = JSON.parse(localStorage.getItem(key) || '{}');
+      document.getElementById('currentChap').value = saved.current || 1;
+      document.getElementById('totalChaps').value = saved.total || 20;
+      document.getElementById('deadlineDate').value = saved.deadline || '';
+      calculateReviewProgress(saved.current || 1, saved.total || 20, saved.deadline || '');
+      loadWeeklyStats();
+    }
+
+    window.onload = () => {
       updateDisplay();
-    }
-
-    document.getElementById('novelName').addEventListener('input', saveData);
-    window.onload = loadData;
+      switchNovel();
+    };
   </script>
 </body>
 </html>
